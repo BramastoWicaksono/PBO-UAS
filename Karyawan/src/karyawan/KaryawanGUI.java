@@ -26,7 +26,50 @@ public class KaryawanGUI extends javax.swing.JFrame {
         kolomTabel();
         getAllData();
     }
+    
+    private void kolomTabel() {
+        model.addColumn("ID Karyawan");
+        model.addColumn("NIK");
+        model.addColumn("Nama");
+        model.addColumn("Jenis Kelamin");
+        model.addColumn("Agama");
+        model.addColumn("Alamat");
+        model.addColumn("TTL");
+        model.addColumn("Email");
+        model.addColumn("Jabatan");
+        model.addColumn("Jumlah Anak");
+        model.addColumn("Gaji");
+        tblKaryawan.setModel(model);
+    }
 
+    private void getAllData(){
+        try {
+           model.setRowCount(0);
+           crud.bukaKoneksi();
+           ArrayList<karyawan> listkaryawan = crud.read();
+            System.out.println(listkaryawan.size());
+            for (karyawan k : listkaryawan){
+                model.addRow(new Object[]{
+                    k.getId_Karyawan(),
+                    k.getNIK(),
+                    k.getNama(),
+                    k.getJenis_Kelamin(),
+                    k.getAgama(),
+                    k.getAlamat(),
+                    k.getTTL(),
+                    k.getEmail(),
+                    k.getJabatan(),
+                    k.getJumlah_Anak(),
+                    k.getGaji()
+                });
+            }
+            crud.tutupKoneksi();
+            } catch (SQLException | ClassNotFoundException ex){
+                JOptionPane.showMessageDialog(null, "Gagal mengambil");
+
+            }
+       }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -388,47 +431,6 @@ public class KaryawanGUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtTTL;
     // End of variables declaration//GEN-END:variables
 
-    private void kolomTabel() {
-        model.addColumn("ID Karyawan");
-        model.addColumn("NIK");
-        model.addColumn("Nama");
-        model.addColumn("Jenis Kelamin");
-        model.addColumn("Agama");
-        model.addColumn("Alamat");
-        model.addColumn("TTL");
-        model.addColumn("Email");
-        model.addColumn("Jabatan");
-        model.addColumn("Jumlah Anak");
-        model.addColumn("Gaji");
-        tblKaryawan.setModel(model);
-    }
-
-    private void getAllData(){
-        try {
-           model.setRowCount(0);
-           crud.bukaKoneksi();
-           ArrayList<karyawan> listkaryawan = crud.read();
-            System.out.println(listkaryawan.size());
-            for (karyawan k : listkaryawan){
-                model.addRow(new Object[]{
-                    k.getId_Karyawan(),
-                    k.getNIK(),
-                    k.getNama(),
-                    k.getJenis_Kelamin(),
-                    k.getAgama(),
-                    k.getAlamat(),
-                    k.getTTL(),
-                    k.getEmail(),
-                    k.getJabatan(),
-                    k.getJumlah_Anak(),
-                    k.getGaji()
-                });
-            }
-            crud.tutupKoneksi();
-         } catch (SQLException | ClassNotFoundException ex){
-             JOptionPane.showMessageDialog(null, "Gagal mengambil");
-         
-         }
-    }
+    
     
 }

@@ -37,10 +37,10 @@ public class CRUDSQLite implements CRUDInterface{
        while (rs.next()){
        karyawan k = new karyawan();
        k.setId_Karyawan(rs.getInt(1));
-       k.setNIK(rs.getNString(2));
-       k.setNama(rs.getNString(3));
+       k.setNIK(rs.getString(2));
+       k.setNama(rs.getString(3));
        k.setJenis_Kelamin(rs.getString(4));
-       k.setAgama(rs.getNString(5));
+       k.setAgama(rs.getString(5));
        k.setAlamat(rs.getString(6));
        k.setTTL(rs.getString(7));
        k.setEmail(rs.getString(8));
@@ -53,18 +53,18 @@ public class CRUDSQLite implements CRUDInterface{
     }
 
     @Override
-    public karyawan readById(int Id_Karyawan) throws SQLException {
+    public karyawan readById(int id) throws SQLException {
         String query = "select * from karyawan where Id_Karyawan = ?";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, Id_Karyawan);
+        ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
         karyawan k = new karyawan();
         while (rs.next()){
         k.setId_Karyawan(rs.getInt(1));
-        k.setNIK(rs.getNString(2));
-        k.setNama(rs.getNString(3));
+        k.setNIK(rs.getString(2));
+        k.setNama(rs.getString(3));
         k.setJenis_Kelamin(rs.getString(4));
-        k.setAgama(rs.getNString(5));
+        k.setAgama(rs.getString(5));
         k.setAlamat(rs.getString(6));
         k.setTTL(rs.getString(7));
         k.setEmail(rs.getString(8));
@@ -77,19 +77,18 @@ public class CRUDSQLite implements CRUDInterface{
 
     @Override
     public void create(karyawan k) throws SQLException {
-        String query = "insert into karyawan(Id_Karyawan,NIK,Nama,Jenis_Kelamin,Agama,Alamat,TTL,Email,Jabatan,Jumlah_Anak,Gaji) values(?,?,?,?)";
+        String query = "insert into karyawan(NIK,Nama,Jenis_Kelamin,Agama,Alamat,TTL,Email,Jabatan,Jumlah_Anak,Gaji) values(?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, k.getId_Karyawan());
-        ps.setString(2, k.getNIK());
-        ps.setString(3, k.getNama());
-        ps.setString(4, k.getJenis_Kelamin());
-        ps.setString(5, k.getAgama());
-        ps.setString(6, k.getAlamat());
-        ps.setString(7, k.getTTL());
-        ps.setString(8, k.getEmail());
-        ps.setString(9, k.getJabatan());
-        ps.setInt(10, k.getJumlah_Anak());
-        ps.setString(11, k.getGaji());
+        ps.setString(1, k.getNIK());
+        ps.setString(2, k.getNama());
+        ps.setString(3, k.getJenis_Kelamin());
+        ps.setString(4, k.getAgama());
+        ps.setString(5, k.getAlamat());
+        ps.setString(6, k.getTTL());
+        ps.setString(7, k.getEmail());
+        ps.setString(8, k.getJabatan());
+        ps.setInt(9, k.getJumlah_Anak());
+        ps.setString(10, k.getGaji());
         ps.execute();
     }
 
@@ -103,20 +102,19 @@ public class CRUDSQLite implements CRUDInterface{
 
     @Override
     public void update(karyawan k) throws SQLException {
-        String query = "update karyawan set Id_Karyawan=?, NIK=?, Nama=?, Jenis_Kelamin=?, Agama=?, Alamat=?, TTl=?, Email=?, Jabatan=?,"
+        String query = "update karyawan set NIK=?, Nama=?, Jenis_Kelamin=?, Agama=?, Alamat=?, TTl=?, Email=?, Jabatan=?,"
                 + "Jumlah_Anak=?, Gaji=?, where Id_Karyawan=?";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, k.getId_Karyawan());
-        ps.setString(2, k.getNIK());
-        ps.setString(3, k.getNama());
-        ps.setString(4, k.getJenis_Kelamin());
-        ps.setString(5, k.getAgama());
-        ps.setString(6, k.getAlamat());
-        ps.setString(7, k.getTTL());
-        ps.setString(8, k.getEmail());
-        ps.setString(9, k.getJabatan());
-        ps.setInt(10, k.getJumlah_Anak());
-        ps.setString(11, k.getGaji());
+        ps.setString(1, k.getNIK());
+        ps.setString(2, k.getNama());
+        ps.setString(3, k.getJenis_Kelamin());
+        ps.setString(4, k.getAgama());
+        ps.setString(5, k.getAlamat());
+        ps.setString(6, k.getTTL());
+        ps.setString(7, k.getEmail());
+        ps.setString(8, k.getJabatan());
+        ps.setInt(9, k.getJumlah_Anak());
+        ps.setString(10, k.getGaji());
         ps.execute();
     }
     
