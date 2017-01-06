@@ -77,7 +77,7 @@ public class CRUDSQLite implements CRUDInterface{
 
     @Override
     public void create(karyawan k) throws SQLException {
-        String query = "insert into karyawan(NIK,Nama,Jenis_Kelamin,Agama,Alamat,TTL,Email,Jabatan,Jumlah_Anak,Gaji) values(?,?,?,?)";
+        String query = "insert into karyawan(NIK, Nama, Jenis_Kelamin, Agama, Alamat, TTL, Email, Jabatan, Jumlah_Anak, Gaji) values(?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, k.getNIK());
         ps.setString(2, k.getNama());
@@ -102,8 +102,7 @@ public class CRUDSQLite implements CRUDInterface{
 
     @Override
     public void update(karyawan k) throws SQLException {
-        String query = "update karyawan set NIK=?, Nama=?, Jenis_Kelamin=?, Agama=?, Alamat=?, TTl=?, Email=?, Jabatan=?,"
-                + "Jumlah_Anak=?, Gaji=?, where Id_Karyawan=?";
+        String query = "update karyawan set NIK=?, Nama=?, Jenis_Kelamin=?, Agama=?, Alamat=?, TTl=?, Email=?, Jabatan=?, Jumlah_Anak=?, Gaji=? where Id_Karyawan=?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, k.getNIK());
         ps.setString(2, k.getNama());
@@ -115,6 +114,7 @@ public class CRUDSQLite implements CRUDInterface{
         ps.setString(8, k.getJabatan());
         ps.setInt(9, k.getJumlah_Anak());
         ps.setString(10, k.getGaji());
+        ps.setInt(11, k.getId_Karyawan());
         ps.execute();
     }
     

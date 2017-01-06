@@ -69,7 +69,74 @@ public class KaryawanGUI extends javax.swing.JFrame {
 
             }
        }
-    
+    private void editData() {
+        if (Status.equals("add")) {
+            txtID.setText("");
+            txtNIK.setText("");
+            txtNama.setText("");
+            txtJenis_Kelamin.setText("");
+            txtAgama.setText("");
+            txtAlamat.setText("");
+            txtTTL.setText("");
+            txtEmail.setText("");
+            txtJabatan.setText("");
+            txtJumlah_Anak.setText("");
+            txtGaji.setText("");
+                    
+        }
+        txtID.setEditable(false);
+        txtNIK.setEditable(true);
+        txtNama.setEditable(true);
+        txtJenis_Kelamin.setEditable(true);
+        txtAgama.setEditable(true);
+        txtAlamat.setEditable(true);
+        txtTTL.setEditable(true);
+        txtEmail.setEditable(true);
+        txtJabatan.setEditable(true);
+        txtJumlah_Anak.setEditable(true);
+        txtGaji.setEditable(true);
+        btnSimpan.setEnabled(true);
+        btnBatal.setEnabled(true);
+        btnTambah.setEnabled(false);
+        btnUbah.setEnabled(false);
+        btnHapus.setEnabled(false);
+        btnKeluar.setEnabled(false);
+        txtNama.requestFocus();
+    }
+ 
+    private void readData() {
+        txtID.setEditable(false);
+        txtNIK.setEditable(false);
+        txtNama.setEditable(false);
+        txtJenis_Kelamin.setEditable(false);
+        txtAgama.setEditable(false);
+        txtAlamat.setEditable(false);
+        txtTTL.setEditable(false);
+        txtEmail.setEditable(false);
+        txtJabatan.setEditable(false);
+        txtJumlah_Anak.setEditable(false);
+        txtGaji.setEditable(false);
+        btnSimpan.setEnabled(false);
+        btnBatal.setEnabled(false);
+        btnTambah.setEnabled(true);
+        btnUbah.setEnabled(true);
+        btnHapus.setEnabled(true);
+        btnKeluar.setEnabled(true);
+    }
+ 
+    private void kosongkanTeks() {
+            txtID.setText("");
+            txtNIK.setText("");
+            txtNama.setText("");
+            txtJenis_Kelamin.setText("");
+            txtAgama.setText("");
+            txtAlamat.setText("");
+            txtTTL.setText("");
+            txtEmail.setText("");
+            txtJabatan.setText("");
+            txtJumlah_Anak.setText("");
+            txtGaji.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -159,6 +226,11 @@ public class KaryawanGUI extends javax.swing.JFrame {
 
         btnBatal.setText("Batal");
         btnBatal.setEnabled(false);
+        btnBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBatalActionPerformed(evt);
+            }
+        });
 
         txtID.setEditable(false);
         txtID.addActionListener(new java.awt.event.ActionListener() {
@@ -167,23 +239,40 @@ public class KaryawanGUI extends javax.swing.JFrame {
             }
         });
 
+        txtNIK.setEditable(false);
         txtNIK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNIKActionPerformed(evt);
             }
         });
 
+        txtNama.setEditable(false);
         txtNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNamaActionPerformed(evt);
             }
         });
 
+        txtJenis_Kelamin.setEditable(false);
         txtJenis_Kelamin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtJenis_KelaminActionPerformed(evt);
             }
         });
+
+        txtAgama.setEditable(false);
+
+        txtAlamat.setEditable(false);
+
+        txtTTL.setEditable(false);
+
+        txtEmail.setEditable(false);
+
+        txtJabatan.setEditable(false);
+
+        txtJumlah_Anak.setEditable(false);
+
+        txtGaji.setEditable(false);
 
         tblKaryawan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -196,11 +285,26 @@ public class KaryawanGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKaryawanMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblKaryawan);
 
         btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         btnUbah.setText("Ubah");
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUbahActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +314,11 @@ public class KaryawanGUI extends javax.swing.JFrame {
         });
 
         btnKeluar.setText("Keluar");
+        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -338,12 +447,25 @@ public class KaryawanGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+         if (k == null) {
+            JOptionPane.showMessageDialog(null, "Pilih data dahulu");
+        } else {
+            try {
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Hapus data?", "Warning", dialogButton);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    crud.bukaKoneksi();
+                    crud.delete(k);
+                    getAllData();
+                    crud.tutupKoneksi();
+                    k = null;
+                    kosongkanTeks();
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Hapus data gagal");
+            }
+        }
     }//GEN-LAST:event_btnHapusActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
 
     private void txtNIKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNIKActionPerformed
         // TODO add your handling code here:
@@ -355,11 +477,128 @@ public class KaryawanGUI extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
+        karyawan k;
+        if (Status.equals("add")) {
+            try {
+                if (txtNIK.getText().isEmpty() || txtNama.getText().isEmpty()
+                        || txtJenis_Kelamin.getText().isEmpty() || txtAgama.getText().isEmpty()
+                        || txtAlamat.getText().isEmpty() || txtTTL.getText().isEmpty()
+                        || txtEmail.getText().isEmpty() || txtJabatan.getText().isEmpty()
+                        || txtJumlah_Anak.getText().isEmpty() || txtGaji.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Data harus diisi semua");
+                } else {
+                    crud.bukaKoneksi();
+                    k = new karyawan();
+                    k.setNIK(txtNIK.getText());
+                    k.setNama(txtNama.getText());
+                    k.setJenis_Kelamin(txtJenis_Kelamin.getText());
+                    k.setAgama(txtAgama.getText());
+                    k.setAlamat(txtAlamat.getText());
+                    k.setTTL(txtTTL.getText());
+                    k.setEmail(txtEmail.getText());
+                    k.setJabatan(txtJabatan.getText());
+                    k.setJumlah_Anak(Integer.parseInt(txtJumlah_Anak.getText()));
+                    k.setGaji(txtGaji.getText());
+                    crud.create(k);
+                    getAllData();
+                    readData();
+                    crud.tutupKoneksi();
+                    JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Data gagal disimpan");
+            }
+        } else {
+            try {
+                if (txtNIK.getText().isEmpty() || txtNama.getText().isEmpty()
+                        || txtJenis_Kelamin.getText().isEmpty() || txtAgama.getText().isEmpty()
+                        || txtAlamat.getText().isEmpty() || txtTTL.getText().isEmpty()
+                        || txtEmail.getText().isEmpty() || txtJabatan.getText().isEmpty()
+                        || txtJumlah_Anak.getText().isEmpty() || txtGaji.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Data harus diisi semua");
+                } else {
+                    crud.bukaKoneksi();
+                    k = new karyawan();
+                    k.setId_Karyawan(Integer.parseInt(txtID.getText()));
+                    k.setNIK(txtNIK.getText());
+                    k.setNama(txtNama.getText());
+                    k.setJenis_Kelamin(txtJenis_Kelamin.getText());
+                    k.setAgama(txtAgama.getText());
+                    k.setAlamat(txtAlamat.getText());
+                    k.setTTL(txtTTL.getText());
+                    k.setEmail(txtEmail.getText());
+                    k.setJabatan(txtJabatan.getText());
+                    k.setJumlah_Anak(Integer.parseInt(txtJumlah_Anak.getText()));
+                    k.setGaji(txtGaji.getText());
+                    crud.update(k);
+                    getAllData();
+                    readData();
+                    crud.tutupKoneksi();
+                    JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Data gagal disimpan");
+            }
+        }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+         Status = "add";
+         editData();
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+        // TODO add your handling code here:
+        Status = "edit";
+        if (txtNIK.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Pilih data dahulu");
+        } else {
+            editData();
+        }
+    }//GEN-LAST:event_btnUbahActionPerformed
+
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnKeluarActionPerformed
+
+    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+        // TODO add your handling code here:
+        readData();
+    }//GEN-LAST:event_btnBatalActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
+
+    private void tblKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKaryawanMouseClicked
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            int baris = tblKaryawan.getSelectedRow();
+            crud.bukaKoneksi();
+            k = crud.readById(Integer.parseInt(tblKaryawan.getValueAt(baris, 0).toString()));
+            crud.tutupKoneksi();
+            txtID.setText(Integer.toString(k.getId_Karyawan()));
+            txtNIK.setText(k.getNIK());
+            txtNama.setText(k.getNama());
+            txtJenis_Kelamin.setText(k.getJenis_Kelamin());
+            txtAgama.setText(k.getAgama());
+            txtAlamat.setText(k.getAlamat());
+            txtTTL.setText(k.getTTL());
+            txtEmail.setText(k.getEmail());
+            txtJabatan.setText(k.getJabatan());
+            txtJumlah_Anak.setText(Integer.toString(k.getJumlah_Anak()));
+            txtGaji.setText(k.getGaji());
+ 
+        } catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Ambil data gagal");
+        }
+    }//GEN-LAST:event_tblKaryawanMouseClicked
 
     /**
      * @param args the command line arguments
